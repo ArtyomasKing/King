@@ -1,0 +1,30 @@
+#include "stdafx.h"
+
+#include <iostream>
+using namespace std;
+
+int comp1(const void * a, const void * b)
+{
+	return strcmp(*(char**)a, *(char**)b);
+}
+
+int main(int argc, char *argv[])
+{
+	bool leave = false;
+	for (int i = 0; i<argc; i++)
+	{
+		string current = argv[i];
+		for (int j = i + 1; j<argc; j++)
+		{
+			if (current == argv[j])
+			{
+				leave = true;
+				break;
+			}
+		}
+		qsort(argv, argc, sizeof(char**), comp1);
+		cout << argv[i] << endl;
+		if (leave) break;
+	}
+	return 0;
+}
